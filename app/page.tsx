@@ -20,6 +20,8 @@ import {
   SiFramer,
 } from "react-icons/si";
 
+import Image from "next/image";
+
 interface CardProps {
   projectName: string;
   link: string;
@@ -170,7 +172,7 @@ const FirstSection = () => {
           <div className="flex justify-start items-center h-full w-full pl-16 absolute">
             <div className="w-full h-full flex justify-end items-center pr-16">
               <AnimatePresence>
-                <motion.img
+                <motion.div
                   initial={{
                     opacity: 0,
                     y: 50,
@@ -189,9 +191,15 @@ const FirstSection = () => {
                     duration: 1,
                     delay: 0.5,
                   }}
-                  className="w-[500px] hidden lg:flex"
-                  src="images/image_example.png"
-                />
+                >
+                  <Image
+                    width={500}
+                    height={0}
+                    alt="none"
+                    className="w-[500px] hidden lg:flex"
+                    src="/images/image_example.png"
+                  />
+                </motion.div>
               </AnimatePresence>
             </div>
           </div>
@@ -600,7 +608,13 @@ const Card = (props: CardProps) => {
                     >
                       {language === "english" ? "View Project" : "Ver Projeto"}
                     </a>
-                    <img src="images/seta.png" className="w-8 h-fit mb-4" />
+                    <Image
+                      width={0}
+                      height={0}
+                      alt="none"
+                      src="/images/seta.png"
+                      className="w-8 h-fit mb-4"
+                    />
                   </div>
                 </div>
               </div>

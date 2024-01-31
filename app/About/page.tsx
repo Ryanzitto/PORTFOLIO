@@ -4,9 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { Footer } from "../components/Footer";
-
 import { useStoreApp } from "../store";
-
+import Image from "next/image";
 const AboutSection = () => {
   const { language } = useStoreApp();
   const [evolvingsHovered, setEvolvingIsHovered] = useState<boolean>(false);
@@ -126,11 +125,11 @@ const AboutSection = () => {
             }}
             className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-zinc-800 w-[80%] text-center pt-10"
           >
-            <strong className="font-nunito">I'm </strong>
+            <strong className="font-nunito">I&apos;m </strong>
             <strong className="text-white font-black font-outline-2">
               Ryan Henrique{" "}
             </strong>
-            <strong className="font-nunito">, I'm a </strong>
+            <strong className="font-nunito">, I&apos;m a </strong>
             <strong className="text-white font-black font-outline-2">
               FullStack{" "}
             </strong>
@@ -212,8 +211,8 @@ const AboutSection = () => {
               evolving
             </strong>{" "}
             as a developer.
-            <br /> I work well in a team, I'm communicative and I'm always
-            looking to improve my skills.
+            <br /> I work well in a team, I&apos;m communicative and I&apos;m
+            always looking to improve my skills.
             <br />
             In my free time I like to watch some series, play sports, have fun
             playing online games, chat with my friends, listen to music and play
@@ -452,7 +451,13 @@ const AboutSection = () => {
               }}
               className="w-fit h-fit absolute flex justify-center items-center transition-all"
             >
-              <img className="w-[400px]" src="images/GIF-MICHAEL.gif" />
+              <Image
+                width={0}
+                height={0}
+                alt="none"
+                className="w-[400px]"
+                src="images/GIF-MICHAEL.gif"
+              />
             </motion.div>
           ) : null}
           {showGif === "failing" ? (
@@ -486,7 +491,13 @@ const AboutSection = () => {
               }}
               className="w-fit h-fit absolute flex justify-center items-center"
             >
-              <img className="w-[400px]" src="images/GIF-failing.gif" />
+              <Image
+                width={0}
+                height={0}
+                alt="none"
+                className="w-[400px]"
+                src="images/GIF-failing.gif"
+              />
             </motion.div>
           ) : null}
           {showGif === "cat" ? (
@@ -520,7 +531,13 @@ const AboutSection = () => {
               }}
               className="w-fit h-fit absolute flex justify-center items-center"
             >
-              <img className="w-[400px]" src="images/GIF-cat.gif" />
+              <Image
+                width={0}
+                height={0}
+                alt="none"
+                className="w-[400px]"
+                src="images/GIF-cat.gif"
+              />
             </motion.div>
           ) : null}
           {showGif === "joke" ? (
@@ -554,7 +571,13 @@ const AboutSection = () => {
               }}
               className="w-fit h-fit absolute flex justify-center items-center"
             >
-              <img className="w-[400px]" src="images/GIF-joke.gif" />
+              <Image
+                width={0}
+                height={0}
+                alt="none"
+                className="w-[400px]"
+                src="images/GIF-joke.gif"
+              />
             </motion.div>
           ) : null}
         </AnimatePresence>
@@ -609,9 +632,11 @@ const Carousel = () => {
         >
           {slides.map((slide, index) => (
             <div key={index} className="w-full flex-shrink-0">
-              <img
+              <Image
+                width={0}
+                height={0}
+                alt="none"
                 src={slide.src}
-                alt={`Imagem ${index + 1}`}
                 className="w-full h-auto"
               />
             </div>

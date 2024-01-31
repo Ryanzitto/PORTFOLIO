@@ -76,7 +76,7 @@ export default function MapChart() {
           alignmentBaseline="middle"
           fill="#ffffff"
         >
-          I'm Here
+          I&apos;m Here
         </text>
       </Annotation>
       <Annotation
