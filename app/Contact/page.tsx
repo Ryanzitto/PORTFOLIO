@@ -47,16 +47,17 @@ const ContactSection = () => {
   async function onSubmit(data: FormData) {
     if (form.current) {
       console.log(form.current);
+
       emailjs
         .sendForm(
           "portfolio-email",
           "template_ysh4p6x",
-          form.current,
+          form.current ?? undefined, // Use nullish coalescing to provide a default value
           "vpHpPBSGZPR_BgpGK"
         )
         .then(
           (result) => {
-            form?.current.reset();
+            form?.current?.reset(); // Use optional chaining for reset
             setShowToast(true);
             const timeOut = setTimeout(() => {
               setShowToast(false);
@@ -68,6 +69,7 @@ const ContactSection = () => {
           }
         );
     }
+
     if (form.current === undefined) {
       console.log("erro");
     }
