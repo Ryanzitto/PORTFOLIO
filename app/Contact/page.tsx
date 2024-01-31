@@ -30,7 +30,7 @@ const ContactSection = () => {
       : "Me contratar em tempo integral"
   );
   const [showToast, setShowToast] = useState<boolean>(false);
-  const form = useRef<null | HTMLFormElement>(null);
+  const form = useRef<any>(null);
   const handleClickSelectOption = (value: string) => {
     setOpen(false);
     setValue(value);
@@ -46,17 +46,16 @@ const ContactSection = () => {
 
   async function onSubmit(data: FormData) {
     if (form.current) {
+      console.log(form.current);
       emailjs
         .sendForm(
           "portfolio-email",
           "template_ysh4p6x",
-          //@ts-ignore
-          form?.current,
+          form.current,
           "vpHpPBSGZPR_BgpGK"
         )
         .then(
           (result) => {
-            //@ts-ignore
             form?.current.reset();
             setShowToast(true);
             const timeOut = setTimeout(() => {
@@ -68,6 +67,9 @@ const ContactSection = () => {
             alert(error.text);
           }
         );
+    }
+    if (form.current === undefined) {
+      console.log("erro");
     }
   }
 
