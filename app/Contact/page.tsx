@@ -30,7 +30,7 @@ const ContactSection = () => {
       : "Me contratar em tempo integral"
   );
   const [showToast, setShowToast] = useState<boolean>(false);
-  const form = useRef<any>(null);
+  const form = useRef<any>("");
   const handleClickSelectOption = (value: string) => {
     setOpen(false);
     setValue(value);
@@ -52,12 +52,13 @@ const ContactSection = () => {
         .sendForm(
           "portfolio-email",
           "template_ysh4p6x",
-          form.current ?? undefined, // Use nullish coalescing to provide a default value
+          form.current || "",
           "vpHpPBSGZPR_BgpGK"
         )
         .then(
           (result) => {
-            form?.current?.reset(); // Use optional chaining for reset
+            //@ts-ignore
+            form?.current?.reset();
             setShowToast(true);
             const timeOut = setTimeout(() => {
               setShowToast(false);
