@@ -64,6 +64,9 @@ export default function MapChart() {
         }
       </Geographies>
       <Annotation
+        connectorProps={{
+          stroke: "#ffffff0",
+        }}
         subject={[12.5, 6.5]}
         dx={0}
         dy={0}
@@ -80,6 +83,9 @@ export default function MapChart() {
         </text>
       </Annotation>
       <Annotation
+        connectorProps={{
+          stroke: "#ffffff0",
+        }}
         subject={[15, 5]}
         dx={0}
         dy={0}
@@ -96,6 +102,9 @@ export default function MapChart() {
         </text>
       </Annotation>
       <Annotation
+        connectorProps={{
+          stroke: "#ffffff0",
+        }}
         subject={[11, 4.5]}
         dx={0}
         dy={0}
