@@ -30,7 +30,7 @@ const ContactSection = () => {
       : "Me contratar em tempo integral"
   );
   const [showToast, setShowToast] = useState<boolean>(false);
-  const form = useRef<HTMLFormElement | string>("");
+  const form = useRef<HTMLFormElement>(null);
   const handleClickSelectOption = (value: string) => {
     setOpen(false);
     setValue(value);
@@ -49,7 +49,7 @@ const ContactSection = () => {
       .sendForm(
         "portfolio-email",
         "template_ysh4p6x",
-        form.current,
+        form.current ?? document.createElement("form"),
         "vpHpPBSGZPR_BgpGK"
       )
       .then(
