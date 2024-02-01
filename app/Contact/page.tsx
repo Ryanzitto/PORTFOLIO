@@ -30,7 +30,7 @@ const ContactSection = () => {
       : "Me contratar em tempo integral"
   );
   const [showToast, setShowToast] = useState<boolean>(false);
-  const form = useRef<any>("");
+  const form = useRef<HTMLFormElement | string>("");
   const handleClickSelectOption = (value: string) => {
     setOpen(false);
     setValue(value);
@@ -44,36 +44,30 @@ const ContactSection = () => {
     resolver: zodResolver(createEmailSchema),
   });
 
-  async function onSubmit(data: FormData) {
-    if (form.current) {
-      console.log(form.current);
-
-      emailjs
-        .sendForm(
-          "portfolio-email",
-          "template_ysh4p6x",
-          form.current || "",
-          "vpHpPBSGZPR_BgpGK"
-        )
-        .then(
-          (result) => {
-            //@ts-ignore
-            form?.current?.reset();
-            setShowToast(true);
-            const timeOut = setTimeout(() => {
-              setShowToast(false);
-            }, 5000);
-            return () => clearTimeout(timeOut);
-          },
-          (error) => {
-            alert(error.text);
-          }
-        );
-    }
-
-    if (form.current === undefined) {
-      console.log("erro");
-    }
+  async function onSubmit() {
+    emailjs
+      .sendForm(
+        "portfolio-email",
+        "template_ysh4p6x",
+        form.current,
+        "vpHpPBSGZPR_BgpGK"
+      )
+      .then(
+        (result) => {
+          console.log("funcionou");
+          //@ts-ignore
+          form?.current?.reset();
+          setShowToast(true);
+          const timeOut = setTimeout(() => {
+            setShowToast(false);
+          }, 5000);
+          return () => clearTimeout(timeOut);
+        },
+        (error) => {
+          console.log("deu ruim");
+          alert(error.text);
+        }
+      );
   }
 
   return (
