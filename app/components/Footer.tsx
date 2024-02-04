@@ -1,17 +1,32 @@
+import { motion, AnimatePresence } from "framer-motion";
 import { FaLinkedin } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
-
 import { useStoreApp } from "../store";
 
 export const Footer = () => {
   const { language } = useStoreApp();
   return (
-    <div className="overflow-x-hidden w-screen h-screen-2xl justify-start items-start flex bg-white">
+    <motion.div
+      initial={{
+        opacity: 0,
+      }}
+      whileInView={{
+        opacity: 1,
+        transition: {
+          duration: 0.8,
+          delay: 0,
+          type: "spring",
+          damping: 10,
+          stiffness: 100,
+        },
+      }}
+      className="overflow-x-hidden w-screen h-screen-2xl justify-start items-start flex bg-white"
+    >
       <div className="w-full h-full p-0 sm:p-10 flex flex-col items-center justify-center">
-        <div className="w-[90%] h-[1px] border-t border-zinc-300"></div>
+        <div className="w-[90%] h-[1px] border-t border-zinc-300/50"></div>
         <div className="w-[90%] h-fit flex justify-center items-center md:justify-start items-start py-6">
           <div className="w-1/2 sm:w-fit h-[300px] flex flex-col p-2 justify-center">
-            <span className="text-zinc-800 text-lg sm:text-2xl font-bold">
+            <span className="text-zinc-800/80 text-lg sm:text-2xl font-bold">
               {language === "english" ? "Contact info -" : "Info de contato"}
             </span>
             <p className="text-zinc-500/80 text-xs sm:text-md pt-4 w-[90%] md:w-[60%]">
@@ -41,7 +56,7 @@ export const Footer = () => {
             </div>
           </div>
           <div className="w-1/2 sm:w-fit h-[300px] flex flex-col p-2 justify-center">
-            <span className="text-zinc-800 text-lg sm:text-2xl font-bold">
+            <span className="text-zinc-800/80 text-lg sm:text-2xl font-bold">
               {language === "english"
                 ? "Current availability -"
                 : "Disponibilidade atual -"}
@@ -51,7 +66,7 @@ export const Footer = () => {
                 ? "I am currently available to work full time or as a freelancer. let's work together!?"
                 : "Atualmente estou disponível para trabalhar em tempo integral ou como freelancer. vamos trabalhar juntos!?"}
             </p>
-            <span className="text-zinc-800 text-lg sm:text-2xl font-bold pt-10">
+            <span className="text-zinc-800/80 text-lg sm:text-2xl font-bold pt-10">
               {language === "english"
                 ? "You can find me on -"
                 : "Você pode me encontrar no -"}
@@ -81,6 +96,6 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

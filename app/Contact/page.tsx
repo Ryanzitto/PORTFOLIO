@@ -30,7 +30,11 @@ const ContactSection = () => {
       : "Me contratar em tempo integral"
   );
   const [showToast, setShowToast] = useState<boolean>(false);
+
+  const [mapIsHovered, setMapIsHovered] = useState<boolean>(false);
+
   const form = useRef<HTMLFormElement>(null);
+
   const handleClickSelectOption = (value: string) => {
     setOpen(false);
     setValue(value);
@@ -71,39 +75,43 @@ const ContactSection = () => {
   }
 
   return (
-    <div className="w-screen h-fit justify-center items-start flex flex-col relative">
+    <div className="w-screen h-fit justify-start items-start flex flex-col relative">
       <div className="flex w-full h-screen justify-center items-center">
         <motion.div
           initial={{
             opacity: 0,
-            y: -50,
           }}
           whileInView={{
             opacity: 1,
-            y: 0,
             transition: {
-              duration: 1,
-              delay: 0.2,
-              type: "spring",
-              stiffness: 100,
+              duration: 0.5,
+              delay: 0,
             },
           }}
-          className=" hidden md:flex w-1/2 h-full justify-start"
+          className=" hidden md:flex w-1/2 h-full justify-start relative"
         >
+          <div
+            onMouseEnter={() => setMapIsHovered(true)}
+            onMouseLeave={() => setMapIsHovered(false)}
+            className={`${
+              mapIsHovered ? "bg-none" : "bg-white/60 backdrop-blur-sm"
+            } w-full h-full flex absolute transition-all duration-[700ms]`}
+          ></div>
           <MapChart />
         </motion.div>
         <motion.div
           initial={{
             opacity: 0,
-            y: -50,
+            x: 200,
           }}
           whileInView={{
             opacity: 1,
-            y: 0,
+            x: 0,
             transition: {
-              duration: 1,
-              delay: 0.2,
+              duration: 0.5,
+              delay: 0,
               type: "spring",
+              damping: 10,
               stiffness: 100,
             },
           }}
@@ -126,21 +134,34 @@ const ContactSection = () => {
       <motion.div
         initial={{
           opacity: 0,
-          y: -50,
         }}
         whileInView={{
           opacity: 1,
-          y: 0,
           transition: {
             duration: 1,
             delay: 0.2,
-            type: "spring",
-            stiffness: 100,
           },
         }}
         className="flex h-screen w-full justify-center items-center mt-10 mb-10"
       >
-        <div className="hidden w-[40%] h-full lg:flex flex-col gap-2 justify-start items-start pt-16 pl-10">
+        <motion.div
+          initial={{
+            opacity: 0,
+            x: -50,
+          }}
+          whileInView={{
+            opacity: 1,
+            x: 0,
+            transition: {
+              duration: 0.5,
+              delay: 0,
+              type: "spring",
+              damping: 10,
+              stiffness: 100,
+            },
+          }}
+          className="hidden w-[40%] h-full lg:flex flex-col gap-2 justify-start items-start pt-16 pl-10"
+        >
           {language === "english" ? (
             <span className="font-nunito font-bold text-7xl text-zinc-800">
               Get in touch. let’s work together
@@ -152,7 +173,7 @@ const ContactSection = () => {
               <br /> e construir algo incrível!
             </span>
           )}
-        </div>
+        </motion.div>
         <div className="w-[90%] lg:w-[60%] h-fit flex flex-col pt-20 justify-start items-start p-4">
           <span className="font-nunito text-xl text-zinc-400 w-[90%]">
             {language === "english"
@@ -251,7 +272,7 @@ const ContactSection = () => {
 
                 <div
                   onClick={() => setOpen(!open)}
-                  className="gap-4 p-6 border border-zinc-300 font-semibold text-zinc-800 flex items-center justify-between w-full h-10 mt-2"
+                  className="cursor-pointer gap-4 p-6 border border-zinc-300 font-semibold text-zinc-800 flex items-center justify-between w-full h-10 mt-2"
                 >
                   <span>{value}</span>
                   <IoIosArrowDown
@@ -260,58 +281,82 @@ const ContactSection = () => {
                     } transition-all duration-[300ms]`}
                   />
                 </div>
-                {open ? (
-                  <div className="absolute mt-[72px] h-fit w-full flex flex-col border border-zinc-300 border-t-transparent">
-                    <div
-                      onClick={() =>
-                        handleClickSelectOption(
-                          language === "english"
+                <AnimatePresence>
+                  {open ? (
+                    <motion.div
+                      initial={{
+                        opacity: 0,
+                        y: -50,
+                      }}
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                        transition: {
+                          duration: 0.5,
+                          delay: 0,
+                        },
+                      }}
+                      exit={{
+                        opacity: 0,
+                        y: 0,
+                        transition: {
+                          duration: 0.5,
+                          delay: 0,
+                        },
+                      }}
+                      className="absolute mt-[72px] h-fit w-full flex flex-col border border-zinc-300 border-t-transparent"
+                    >
+                      <div
+                        onClick={() =>
+                          handleClickSelectOption(
+                            language === "english"
+                              ? "Want to hire me full-time"
+                              : "Me contratar em tempo integral"
+                          )
+                        }
+                        className="pl-6 w-full h-fit p-2 bg-white hover:bg-zinc-200 border-t border-zinc-300"
+                      >
+                        <span>
+                          {language === "english"
                             ? "Want to hire me full-time"
-                            : "Me contratar em tempo integral"
-                        )
-                      }
-                      className="pl-6 w-full h-fit p-2 bg-white hover:bg-zinc-200 border-t border-zinc-300"
-                    >
-                      <span>
-                        {language === "english"
-                          ? "Want to hire me full-time"
-                          : "Me contratar em tempo integral"}
-                      </span>
-                    </div>
-                    <div
-                      onClick={() =>
-                        handleClickSelectOption(
-                          language === "english"
+                            : "Me contratar em tempo integral"}
+                        </span>
+                      </div>
+                      <div
+                        onClick={() =>
+                          handleClickSelectOption(
+                            language === "english"
+                              ? "Want a freelancer dev"
+                              : "Deseja encontrar um Dev freelancer"
+                          )
+                        }
+                        className="pl-6 w-full h-fit p-2 bg-white hover:bg-zinc-200"
+                      >
+                        <span>
+                          {language === "english"
                             ? "Want a freelancer dev"
-                            : "Deseja encontrar um Dev freelancer"
-                        )
-                      }
-                      className="pl-6 w-full h-fit p-2 bg-white hover:bg-zinc-200"
-                    >
-                      <span>
-                        {language === "english"
-                          ? "Want a freelancer dev"
-                          : "Deseja encontrar um Dev freelancer"}
-                      </span>
-                    </div>
-                    <div
-                      onClick={() =>
-                        handleClickSelectOption(
-                          language === "english"
+                            : "Deseja encontrar um Dev freelancer"}
+                        </span>
+                      </div>
+                      <div
+                        onClick={() =>
+                          handleClickSelectOption(
+                            language === "english"
+                              ? "Just say hi!"
+                              : "Apenas dizer Olá!"
+                          )
+                        }
+                        className="pl-6 w-full h-fit p-2 bg-white hover:bg-zinc-200"
+                      >
+                        <span>
+                          {language === "english"
                             ? "Just say hi!"
-                            : "Apenas dizer Olá!"
-                        )
-                      }
-                      className="pl-6 w-full h-fit p-2 bg-white hover:bg-zinc-200"
-                    >
-                      <span>
-                        {language === "english"
-                          ? "Just say hi!"
-                          : "Apenas dizer Olá!"}
-                      </span>
-                    </div>
-                  </div>
-                ) : null}
+                            : "Apenas dizer Olá!"}
+                        </span>
+                      </div>
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
               </div>
             </div>
             <div className="flex gap-4 w-full justify-center items-center pt-8">
@@ -385,7 +430,7 @@ const ContactSection = () => {
                 stiffness: 100,
               },
             }}
-            className="w-full h-40 fixed flex justify-start items-start pl-6 pt-2"
+            className="z-40 w-full h-screen fixed flex justify-end items-end pr-6 pb-4"
           >
             <div className="w-60 h-fit p-2 border border-zinc-300 bg-zinc-100 rounded-md flex gap-2 items-center">
               <IoCheckmarkCircle className="text-green-500 text-xl" />

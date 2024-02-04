@@ -86,14 +86,12 @@ const Section = (props: { children: ReactNode }) => {
       className="h-screen w-screen max-w-screen-2xl mx-auto flex flex-col items-center justify-center"
       initial={{
         opacity: 0,
-        y: 50,
       }}
       whileInView={{
         opacity: 1,
-        y: 0,
         transition: {
-          duration: 1,
-          delay: 0.6,
+          duration: 0.8,
+          delay: 0.1,
         },
       }}
     >
@@ -126,7 +124,24 @@ const FirstSection = () => {
       <div className="flex w-screen h-screen overflow-x-hidden justify-start items-start lg:items-center lg:justify-center bg-white relative">
         <main className="h-full w-full flex flex-col lg:flex-row justify-center items-center relative">
           <div className="z-10 flex justify-center sm:justify-start items-center h-full w-full sm:pl-16">
-            <div className="flex flex-col justify-center items-center sm:justify-start sm:items-start">
+            <motion.div
+              initial={{
+                opacity: 0,
+                x: -50,
+              }}
+              whileInView={{
+                opacity: 1,
+                x: 0,
+                transition: {
+                  duration: 0.8,
+                  delay: 0,
+                  type: "spring",
+                  damping: 10,
+                  stiffness: 100,
+                },
+              }}
+              className="flex flex-col justify-center items-center sm:justify-start sm:items-start"
+            >
               <span className="tracking-[4px] text-zinc-500 font-light font-nunito w-fit text-md">
                 RYAN HENRIQUE
               </span>
@@ -167,40 +182,36 @@ const FirstSection = () => {
                   {language === "english" ? "Contact" : "Contato"}
                 </span>
               </div>
-            </div>
+            </motion.div>
           </div>
           <div className="flex justify-start items-center h-full w-full pl-16 absolute">
             <div className="w-full h-full flex justify-end items-center pr-16">
-              <AnimatePresence>
-                <motion.div
-                  initial={{
-                    opacity: 0,
-                    y: 50,
-                    scale: 0.95,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                  }}
-                  exit={{
-                    opacity: 0,
-                    scale: 0.95,
-                  }}
-                  transition={{
-                    duration: 1,
-                    delay: 0.5,
-                  }}
-                >
-                  <Image
-                    width={500}
-                    height={0}
-                    alt="none"
-                    className="w-[500px] hidden lg:flex"
-                    src="/images/image_example.png"
-                  />
-                </motion.div>
-              </AnimatePresence>
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  x: 50,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  x: 0,
+                  transition: {
+                    duration: 0.8,
+                    delay: 0,
+                    type: "spring",
+                    damping: 10,
+                    stiffness: 100,
+                  },
+                }}
+                className="w-fit h-full flex justify-center items-center"
+              >
+                <Image
+                  width={500}
+                  height={0}
+                  alt="none"
+                  className="w-[500px] hidden lg:flex"
+                  src="/images/image_example.png"
+                />
+              </motion.div>
             </div>
           </div>
         </main>
@@ -212,14 +223,60 @@ const FirstSection = () => {
 const SecondSection = () => {
   const { language } = useStoreApp();
   return (
-    <div className="overflow-x-hidden w-screen h-screen-2xl justify-start items-start flex flex-col bg-white">
-      <div className="w-full h-full p-10 flex flex-col items-center md:items-start justify-center">
-        <span className="tracking-[3px] text-zinc-400 font-light font-nunito w-fit">
+    <motion.div
+      initial={{
+        opacity: 0,
+      }}
+      whileInView={{
+        opacity: 1,
+        transition: {
+          duration: 0.8,
+          delay: 0,
+        },
+      }}
+      className="overflow-x-hidden w-screen h-screen-2xl justify-start items-start flex flex-col bg-white mt-36"
+    >
+      <div className="w-full h-full p-10 flex flex-col items-center md:items-start justify-center ">
+        <motion.span
+          initial={{
+            opacity: 0,
+            x: -50,
+          }}
+          whileInView={{
+            opacity: 1,
+            x: 0,
+            transition: {
+              duration: 0.8,
+              delay: 0,
+              type: "spring",
+              damping: 10,
+              stiffness: 100,
+            },
+          }}
+          className="tracking-[3px] text-zinc-400 font-light font-nunito w-fit pl-10"
+        >
           {language === "english" ? "PROJECTS" : "PROJETOS"}
-        </span>
-        <span className="font-nunito text-zinc-800 font-black text-2xl md:text-6xl w-fit mt-4">
+        </motion.span>
+        <motion.span
+          initial={{
+            opacity: 0,
+            x: -50,
+          }}
+          whileInView={{
+            opacity: 1,
+            x: 0,
+            transition: {
+              duration: 0.8,
+              delay: 0,
+              type: "spring",
+              damping: 10,
+              stiffness: 100,
+            },
+          }}
+          className="font-nunito text-zinc-800 font-black text-2xl md:text-6xl w-fit mt-4 pl-10"
+        >
           {language === "english" ? "Personal Projects" : "Projetos pessoais"}
-        </span>
+        </motion.span>
         {language === "english" ? (
           <div className="w-full h-fit p-10 flex justify-center items-center gap-10 flex-wrap mt-8">
             {projectsEnglish.map((item) => {
@@ -236,7 +293,7 @@ const SecondSection = () => {
             })}
           </div>
         ) : (
-          <div className="w-full h-fit p-10 flex justify-center items-center gap-10 flex-wrap mt-8">
+          <div className="w-full h-fit p-10 flex justify-center items-center gap-10 flex-wrap">
             {projectsPortuguese.map((item) => {
               return (
                 <Card
@@ -253,20 +310,49 @@ const SecondSection = () => {
         )}
       </div>
       <div className="w-full h-full p-10 flex flex-col items-center md:items-start justify-center">
-        <span className="font-nunito text-zinc-800 font-black text-2xl md:text-6xl w-fit mt-4">
+        <motion.span
+          initial={{
+            opacity: 0,
+            x: -50,
+          }}
+          whileInView={{
+            opacity: 1,
+            x: 0,
+            transition: {
+              duration: 0.8,
+              delay: 0,
+              type: "spring",
+              damping: 10,
+              stiffness: 100,
+            },
+          }}
+          className="font-nunito text-zinc-800 font-black text-2xl md:text-6xl w-fit mt-4"
+        >
           {language === "english"
             ? "Freelancer Projects"
             : "Projetos Freelancer"}
-        </span>
+        </motion.span>
         <div className="w-full h-fit p-10 flex justify-center items-center gap-10 flex-wrap mt-8">
           <div className="w-full h-[500px] flex justify-center items-center">
-            <span className="text-zinc-800/80 text-5xl">
+            <motion.span
+              initial={{
+                opacity: 0,
+              }}
+              whileInView={{
+                opacity: 1,
+                transition: {
+                  duration: 0.8,
+                  delay: 0,
+                },
+              }}
+              className="text-zinc-800/80 text-5xl"
+            >
               {language === "english" ? "Comming soon" : "Em breve"}
-            </span>
+            </motion.span>
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -279,7 +365,19 @@ const ThirdSection = () => {
     router.push("Contact");
   };
   return (
-    <div className="overflow-x-hidden w-screen h-screen-2xl justify-start items-start flex bg-white">
+    <motion.div
+      initial={{
+        opacity: 0,
+      }}
+      whileInView={{
+        opacity: 1,
+        transition: {
+          duration: 1,
+          delay: 0.2,
+        },
+      }}
+      className="overflow-x-hidden w-screen h-screen-2xl justify-start items-start flex bg-white"
+    >
       <div className="w-full h-full p-10 flex flex-col items-center justify-center">
         <span className="tracking-[3px] text-zinc-400 font-light font-nunito w-fit">
           {language === "english"
@@ -315,7 +413,7 @@ const ThirdSection = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -327,29 +425,25 @@ const Card = (props: CardProps) => {
     <motion.div
       initial={{
         opacity: 0,
-        y: 50,
       }}
       whileInView={{
         opacity: 1,
-        y: 0,
         transition: {
-          duration: 1,
-          delay: 0.2,
+          duration: 0.8,
+          delay: 0,
         },
       }}
-      className={`${bg} w-fit flex flex-col gap-2 justify-center items-center relative`}
+      className={`${bg} w-fit flex flex-col gap-2 justify-center items-center relative mt-16`}
     >
       <motion.div
         initial={{
-          y: -200,
           opacity: 0,
           radius: 50,
         }}
         animate={{
-          y: 0,
           opacity: 1,
           transition: {
-            delay: 0.3,
+            delay: 0.1,
             type: "spring",
             damping: 10,
             duration: 0.2,
@@ -359,8 +453,10 @@ const Card = (props: CardProps) => {
         onMouseEnter={() => setCardIsHovered(true)}
         onMouseLeave={() => setCardIsHovered(false)}
         className={`${
-          cardIsHovered ? "bg-zinc-800/90" : "bg-zinc-800/70"
-        } backdrop-blur-sm w-[380px] h-[600px] md:w-[500px] md:h-[600px] flex items-center justify-center transition-all duration-[1500ms]`}
+          cardIsHovered
+            ? "bg-zinc-800/95 backdrop-blur-md"
+            : "bg-zinc-800/90 backdrop-blur-sm"
+        }  w-[380px] h-[600px] md:w-[500px] md:h-[600px] flex items-center justify-center transition-all duration-[1500ms]`}
       >
         <AnimatePresence>
           {cardIsHovered ? null : (
@@ -371,7 +467,7 @@ const Card = (props: CardProps) => {
               animate={{
                 opacity: 1,
                 transition: {
-                  delay: 0.3,
+                  delay: 0.1,
                   damping: 10,
                   duration: 0.2,
                   stiffness: 100,
@@ -380,7 +476,7 @@ const Card = (props: CardProps) => {
               exit={{
                 opacity: 0,
                 transition: {
-                  delay: 0.3,
+                  delay: 0.1,
                   damping: 10,
                   duration: 0.2,
                   stiffness: 100,
@@ -408,7 +504,7 @@ const Card = (props: CardProps) => {
                 y: 0,
                 opacity: 1,
                 transition: {
-                  delay: 0.3,
+                  delay: 0.1,
                   type: "spring",
                   damping: 10,
                   duration: 0.2,
@@ -419,7 +515,7 @@ const Card = (props: CardProps) => {
                 y: -200,
                 opacity: 0,
                 transition: {
-                  delay: 0.3,
+                  delay: 0.1,
                   type: "spring",
                   damping: 10,
                   duration: 0.2,
@@ -428,7 +524,7 @@ const Card = (props: CardProps) => {
               }}
               className="w-full h-full flex flex-col justify-start items-center"
             >
-              <div className="w-full h-[20%] flex">
+              <div className="w-full h-[20%] flex ">
                 <div className="pl-0 md:pl-12 w-full flex flex-col justify-end items-center md:items-start">
                   <span className="tracking-[3px] text-white font-light font-nunito">
                     {year}
@@ -438,8 +534,8 @@ const Card = (props: CardProps) => {
                   </span>
                 </div>
               </div>
-              <div className="w-full h-[70%] pl-0 md:pl-12 flex flex-col justify-between items-center md:items-start pt-4">
-                <p className="font-nunito text-white font-medium pt-4 text-md md:text-lg w-[80%] md:w-[75%] text-center md:text-start">
+              <div className="w-full h-[60%] p-0 md:p-12 flex flex-col justify-between items-center md:items-start pt-4">
+                <p className="font-nunito text-white font-medium text-md md:text-lg w-[80%] md:w-[75%] text-center md:text-start">
                   {desc}
                 </p>
                 <div className="w-full flex flex-col mt-6 gap-2 md:justify-start justify-center md:items-start items-center">
@@ -599,22 +695,18 @@ const Card = (props: CardProps) => {
                     </div>
                   )}
                 </div>
+              </div>
+              <div className="w-full h-[20%] flex justify-center items-center">
                 <div className="w-full flex items-center justify-center">
                   <div className="w-fit items-center justify-center flex gap-4 transition-all duration-[1500ms] hover:opacity-50">
                     <a
                       href={link}
                       target="blank"
-                      className="w-fit pt-4 cursor-pointer text-white font-nunito font-bold text-4xl mb-8 cursor-pointer"
+                      className="w-fit cursor-pointer text-white font-nunito font-bold text-4xl cursor-pointer"
                     >
                       {language === "english" ? "View Project" : "Ver Projeto"}
                     </a>
-                    <Image
-                      width={0}
-                      height={0}
-                      alt="none"
-                      src="/images/seta.png"
-                      className="w-8 h-fit mb-4"
-                    />
+                    <FaArrowRight className="text-white text-2xl h-fit" />
                   </div>
                 </div>
               </div>
